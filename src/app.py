@@ -65,3 +65,20 @@ def signup_for_activity(activity_name: str, email: str):
     # Add student
     activity["participants"].append(email)
     return {"message": f"Signed up {email} for {activity_name}"}
+
+
+@app.get("/multiplication-table/{number}")
+def get_multiplication_table(number: int):
+    """Generate and return multiplication table for a given number"""
+    if number < 1:
+        raise HTTPException(status_code=400, detail="Number must be positive")
+    
+    table = []
+    for i in range(1, 11):
+        result = number * i
+        table.append(f"{number} x {i} = {result}")
+    
+    return {
+        "number": number,
+        "table": table
+    }
